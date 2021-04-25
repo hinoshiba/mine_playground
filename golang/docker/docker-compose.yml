@@ -1,0 +1,10 @@
+version: '3'
+services:
+    dev-go:
+        build: ./dev-go
+        user: "${CURRENT_UID}:${CURRENT_GID}"
+        tty: true
+        volumes:
+            - ../src/go:/go/src
+        environment:
+            - BUILD_VERSION

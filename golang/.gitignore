@@ -1,0 +1,4 @@
+src/go/src/goplay/bin
+src/go/src/goplay/vendor
+src/go/src/goplay/Gopkg.lock
+
