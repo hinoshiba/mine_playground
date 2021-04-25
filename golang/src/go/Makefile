@@ -7,10 +7,9 @@ GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOMOD=$(GOENV) go mod
 
-#BUILD_FLGS=-a -tags netgo -installsuffix netgo -ldflags='-extldflags="static" -X main.Version=$(BUILD_VERSION)'
-BUILD_FLGS=-a -tags netgo -installsuffix netgo -ldflags='-X main.Version=$(BUILD_VERSION)'
-WIN_OPT=CGO_ENABLED=1 GOOS=windows GOARCH=amd64 CXX=x86_64-w64-mingw32-g++ CC=x86_64-w64-mingw32-gcc
-MAC_OPT=CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 CC=gcc CXX=g++
+BUILD_FLGS=-a -tags netgo -installsuffix netgo -ldflags='-extldflags="static" -X main.Version=$(BUILD_VERSION)'
+WIN_OPT=GO111MODULE=on CGO_ENABLED=1 GOOS=windows GOARCH=amd64
+MAC_OPT=GO111MODULE=on CGO_ENABLED=1 GOOS=darwin GOARCH=amd64
 
 SRCS := $(shell find . -name '*.go' -type f)
 BINS := $(shell test -d ./bin && find ./bin/ -type f)
@@ -18,7 +17,7 @@ BINS := $(shell test -d ./bin && find ./bin/ -type f)
 all: test build ## test & build
 
 build: $(SRCS) ## build to linux binary
-	cd $(CURDIR)/$(PRJ); CGO_ENABLED=1 $(GOBUILD) $(BUILD_FLGS) goplay/exec/...
+	cd $(CURDIR)/$(PRJ); GO111MODULE=on CGO_ENABLED=1 $(GOBUILD) $(BUILD_FLGS) goplay/exec/...
 
 .PHONY: test
 test: ## run test
